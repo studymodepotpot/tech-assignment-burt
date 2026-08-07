@@ -1,0 +1,8 @@
+{
+    "func": {
+        "plus": "plus",
+        "times": "times",
+        "minus": "minus",
+        "divide": "divide"
+    }
+}
