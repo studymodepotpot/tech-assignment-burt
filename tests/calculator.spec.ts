@@ -212,15 +212,85 @@ test.describe('test_suite', () => {
     // first input field has word number
     await calPage.compute(wordNum1, num2.toString(), calData.func.minus);
     await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
-    await expect(calPage.answerVal, `Product of ${wordNum1} and ${num2} is displayed.`).toHaveText(answer.toString());
+    await expect(calPage.answerVal, `Difference of ${wordNum1} and ${num2} is displayed.`).toHaveText(answer.toString());
     // second input field has word number
     await calPage.compute(num1.toString(), wordNum2, calData.func.minus);
     await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
-    await expect(calPage.answerVal, `Product of ${num1} and ${wordNum2} is displayed.`).toHaveText(answer.toString());
+    await expect(calPage.answerVal, `Difference of ${num1} and ${wordNum2} is displayed.`).toHaveText(answer.toString());
     // both input fields have word numbers
     await calPage.compute(wordNum1, wordNum2, calData.func.minus);
     await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
-    await expect(calPage.answerVal, `Product of ${wordNum1} and ${wordNum2} is displayed.`).toHaveText(answer.toString());
+    await expect(calPage.answerVal, `Difference of ${wordNum1} and ${wordNum2} is displayed.`).toHaveText(answer.toString());
+  });
+
+  test('TC19: Verify the divide function for even division', async ({ page }) => {
+    const calPage = new CalculatorPage(page);
+    let num1: number = 15;
+    let num2: number = 3;
+    let answer: number = num1/num2;
+    await calPage.compute(num1.toString(), num2.toString(), calData.func.divide);
+    await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
+    await expect(calPage.answerVal, `Quotient of ${num1} and ${num2} is displayed.`).toHaveText(answer.toString());
+  });
+
+  test('TC20: Verify the divide function for numbers with remainder/decimal result', async ({ page }) => {
+    const calPage = new CalculatorPage(page);
+    let num1: number = 10;
+    let num2: number = 4;
+    let answer: number = num1/num2;
+    await calPage.compute(num1.toString(), num2.toString(), calData.func.divide);
+    await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
+    await expect(calPage.answerVal, `Quotient of ${num1} and ${num2} is displayed.`).toHaveText(answer.toString());
+  });
+
+  test('TC21: Verify the divide function with divisor = 0', async ({ page }) => {
+    const calPage = new CalculatorPage(page);
+    let num1: number = 10;
+    let num2: number = 0;
+    await calPage.compute(num1.toString(), num2.toString(), calData.func.divide);
+    await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
+    await expect(calPage.answerVal, `Quotient of ${num1} and ${num2} is displayed.`).toHaveText('undefined');
+  });
+
+  test('TC22: Verify the divide function with dividend = 0', async ({ page }) => {
+    const calPage = new CalculatorPage(page);
+    let num1: number = 0;
+    let num2: number = 3;
+    let answer: number = num1/num2;
+    await calPage.compute(num1.toString(), num2.toString(), calData.func.divide);
+    await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
+    await expect(calPage.answerVal, `Quotient of ${num1} and ${num2} is displayed.`).toHaveText(answer.toString());
+  });
+
+  test('TC23: Verify the divide function with dividend = negative number and divisor = positive number', async ({ page }) => {
+    const calPage = new CalculatorPage(page);
+    let num1: number = -15;
+    let num2: number = 3;
+    let answer: number = num1/num2;
+    await calPage.compute(num1.toString(), num2.toString(), calData.func.divide);
+    await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
+    await expect(calPage.answerVal, `Quotient of ${num1} and ${num2} is displayed.`).toHaveText(answer.toString());
+  });
+
+  test('TC24: Verify the divide function for positive word numbers', async ({ page }) => {
+    const calPage = new CalculatorPage(page);
+    let num1: number = 15;
+    let wordNum1: string = 'fifteen';
+    let num2: number = 3;
+    let wordNum2: string = 'three';
+    let answer: number = num1/num2;
+    // first input field has word number
+    await calPage.compute(wordNum1, num2.toString(), calData.func.divide);
+    await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
+    await expect(calPage.answerVal, `Quotient of ${wordNum1} and ${num2} is displayed.`).toHaveText(answer.toString());
+    // second input field has word number
+    await calPage.compute(num1.toString(), wordNum2, calData.func.divide);
+    await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
+    await expect(calPage.answerVal, `Quotient of ${num1} and ${wordNum2} is displayed.`).toHaveText(answer.toString());
+    // both input fields have word numbers
+    await calPage.compute(wordNum1, wordNum2, calData.func.divide);
+    await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
+    await expect(calPage.answerVal, `Quotient of ${wordNum1} and ${wordNum2} is displayed.`).toHaveText(answer.toString());
   });
 
   test.afterEach(async ({page}) => {
