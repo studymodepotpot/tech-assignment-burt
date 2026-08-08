@@ -13,7 +13,7 @@ export class CalculatorPage {
     constructor(page: Page) {
         this.page = page;
         this.num1 = page.locator(`input#number1`);
-        this.num2 = page.locator(`input#number1`);
+        this.num2 = page.locator(`input#number2`);
         this.func = page.locator(`select#function`);
         this.calcBtn = page.locator(`button#calculate`);
         this.answerLabel = page.locator(`div.centered > div > p`);
@@ -21,4 +21,10 @@ export class CalculatorPage {
     }
 
     //methods
+    async compute(input1: string, input2: string, operator: string) {
+        await this.num1.fill(input1);
+        await this.num2.fill(input2);
+        await this.func.selectOption(operator);
+        await this.calcBtn.click();
+    }
 }
