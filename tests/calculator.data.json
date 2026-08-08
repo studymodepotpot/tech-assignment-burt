@@ -4,5 +4,9 @@
         "times": "times",
         "minus": "minus",
         "divide": "divide"
+    },
+    "err": {
+        "empty": "ERR - Empty input",
+        "notNum": "ERR - Unknown token:"
     }
 }
