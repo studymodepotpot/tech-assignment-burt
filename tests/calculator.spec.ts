@@ -152,6 +152,77 @@ test.describe('test_suite', () => {
     await expect(calPage.answerVal, `Product of ${num1} and ${num2} is displayed.`).toHaveText(answer.toString());
   });
 
+  test('TC13: Verify the minus function for positive - positive = positive number', async ({ page }) => {
+    const calPage = new CalculatorPage(page);
+    let num1: number = 30;
+    let num2: number = 7;
+    let answer: number = num1 - num2;
+    await calPage.compute(num1.toString(), num2.toString(), calData.func.minus);
+    await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
+    await expect(calPage.answerVal, `Difference of ${num1} and ${num2} is displayed.`).toHaveText(answer.toString());
+  });
+
+  test('TC14: Verify the minus function for positive - positive = negative number', async ({ page }) => {
+    const calPage = new CalculatorPage(page);
+    let num1: number = 7;
+    let num2: number = 30;
+    let answer: number = num1 - num2;
+    await calPage.compute(num1.toString(), num2.toString(), calData.func.minus);
+    await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
+    await expect(calPage.answerVal, `Difference of ${num1} and ${num2} is displayed.`).toHaveText(answer.toString());
+  });
+
+  test('TC15: Verify the minus function for same number in both input fields', async ({ page }) => {
+    const calPage = new CalculatorPage(page);
+    let num1: number = 30;
+    let num2: number = 30;
+    let answer: number = num1 - num2;
+    await calPage.compute(num1.toString(), num2.toString(), calData.func.minus);
+    await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
+    await expect(calPage.answerVal, `Difference of ${num1} and ${num2} is displayed.`).toHaveText(answer.toString());
+  });
+
+  test('TC16: Verify the minus function for negative - positive number', async ({ page }) => {
+    const calPage = new CalculatorPage(page);
+    let num1: number = -48;
+    let num2: number = 67;
+    let answer: number = num1 - num2;
+    await calPage.compute(num1.toString(), num2.toString(), calData.func.minus);
+    await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
+    await expect(calPage.answerVal, `Difference of ${num1} and ${num2} is displayed.`).toHaveText(answer.toString());
+  });
+
+  test('TC17: Verify the minus function for decimal numbers', async ({ page }) => {
+    const calPage = new CalculatorPage(page);
+    let num1: number = 8.1;
+    let num2: number = 68.2;
+    let answer: number = num1 - num2;
+    await calPage.compute(num1.toString(), num2.toString(), calData.func.minus);
+    await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
+    await expect(calPage.answerVal, `Difference of ${num1} and ${num2} is displayed.`).toHaveText(answer.toString());
+  });
+
+  test('TC18: Verify the minus function for positive word numbers', async ({ page }) => {
+    const calPage = new CalculatorPage(page);
+    let num1: number = 30;
+    let wordNum1: string = 'thirty';
+    let num2: number = 7;
+    let wordNum2: string = 'seven';
+    let answer: number = num1 - num2;
+    // first input field has word number
+    await calPage.compute(wordNum1, num2.toString(), calData.func.minus);
+    await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
+    await expect(calPage.answerVal, `Product of ${wordNum1} and ${num2} is displayed.`).toHaveText(answer.toString());
+    // second input field has word number
+    await calPage.compute(num1.toString(), wordNum2, calData.func.minus);
+    await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
+    await expect(calPage.answerVal, `Product of ${num1} and ${wordNum2} is displayed.`).toHaveText(answer.toString());
+    // both input fields have word numbers
+    await calPage.compute(wordNum1, wordNum2, calData.func.minus);
+    await expect(calPage.answerLabel, `Answer label should be displayed.`).toBeVisible();
+    await expect(calPage.answerVal, `Product of ${wordNum1} and ${wordNum2} is displayed.`).toHaveText(answer.toString());
+  });
+
   test.afterEach(async ({page}) => {
     await page.close();
   });
