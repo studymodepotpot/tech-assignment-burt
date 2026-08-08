@@ -23,7 +23,7 @@ test.describe('test_suite', () => {
   });
 
   //Critical: functionality
-  test.skip('TC21: Verify the divide function with divisor = 0', async ({ page }) => {
+  test('TC21: Verify the divide function with divisor = 0', async ({ page }) => {
     const calPage = new CalculatorPage(page);
     let num1: number = 10;
     let num2: number = 0;
