@@ -55,7 +55,7 @@ test.describe('test_suite', () => {
   });
 
   //Critical: UI
-  test('TC37: Verify that the Calculator is working correctly after changing the browser window to mobile-size', async ({page}) => {
+  test('TC36: Verify that the Calculator is working correctly after changing the browser window to mobile-size', async ({page}) => {
     const calPage = new CalculatorPage(page);
     //resize window
     await page.setViewportSize({ width: 390, height: 844 }); // standard phone model viewport size (e.g iPhone 13, 14, 15)
